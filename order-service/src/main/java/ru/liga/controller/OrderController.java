@@ -40,7 +40,7 @@ public class OrderController {
     @ApiResponse(responseCode = "500", description = "Internal Server Error")
     @GetMapping("/{id}")
     public ResponseEntity<OrderDto> getOrderDtoById(@PathVariable Long id) {
-        log.info("Request GET orderDto by id");
+        log.info("Request GET orderDto by id {}", id);
         return ResponseEntity.ok().build();
     }
 
@@ -49,7 +49,7 @@ public class OrderController {
     @ApiResponse(responseCode = "400", description = "Bad Request")
     @PutMapping("/update/{id}")
     private void updateOrderStatusById(@PathVariable Long id, @RequestParam OrderStatus status) {
-        log.info("Request PUT order status by id");
+        log.info("Request PUT order status {} by id {}", status, id);
         ResponseEntity.ok().build();
     }
 
