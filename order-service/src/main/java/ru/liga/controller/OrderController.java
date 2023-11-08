@@ -9,7 +9,7 @@ import lombok.extern.slf4j.Slf4j;
 import org.springframework.http.ResponseEntity;
 //import org.springframework.security.core.Authentication;
 import org.springframework.web.bind.annotation.*;
-import ru.liga.dto.CreateOrderDto;
+import ru.liga.dto.CreatedOrderDto;
 import ru.liga.dto.CreatedOrderToDeliveryDto;
 import ru.liga.dto.OrderDto;
 import ru.liga.dto.enums.OrderStatus;
@@ -28,7 +28,7 @@ public class OrderController {
                     schema = @Schema(implementation = CreatedOrderToDeliveryDto.class))
     )
     @PostMapping()
-    public ResponseEntity<CreatedOrderToDeliveryDto> createOrder(@RequestBody CreateOrderDto createOrderDto) {
+    public ResponseEntity<CreatedOrderToDeliveryDto> createOrder(@RequestBody CreatedOrderDto createOrderDto) {
         log.info("Request POST createOrder");
         return ResponseEntity.ok().build();
     }

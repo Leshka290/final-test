@@ -7,7 +7,7 @@ import java.util.List;
 
 @Data
 @Schema(name = "CreateOrders")
-public class CreateOrderDto {
+public class CreatedOrderDto {
     private Long restaurantId;
     private List<MenuItem> menuItems;
 }
