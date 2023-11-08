@@ -20,8 +20,9 @@
         </processorPath>
         <module name="delivery-service" />
         <module name="auth-service" />
-        <module name="order-service" />
         <module name="common" />
+        <module name="migration" />
+        <module name="order-service" />
         <module name="kitchen-service" />
         <module name="notification-service" />
       </profile>
@@ -38,6 +39,7 @@
       <module name="delivery-service" options="-parameters" />
       <module name="dependency_bom" options="-parameters" />
       <module name="kitchen-service" options="-parameters" />
+      <module name="migration" options="-parameters" />
       <module name="notification-service" options="-parameters" />
       <module name="order-service" options="-parameters" />
     </option>

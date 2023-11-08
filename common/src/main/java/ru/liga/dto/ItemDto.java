@@ -9,5 +9,4 @@ public class ItemDto {
     private int price;
     private int quantity;
     private String description;
-    private String image;
 }

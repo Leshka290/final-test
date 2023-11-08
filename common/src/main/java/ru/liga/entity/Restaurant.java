@@ -29,5 +29,4 @@ public class Restaurant {
     @OneToMany(fetch = FetchType.LAZY, mappedBy = "restaurant")
     @ToString.Exclude
     private List<Order> orders;
-
 }

@@ -12,11 +12,13 @@ import ru.liga.entity.Order;
 import ru.liga.entity.OrderItem;
 import ru.liga.entity.Restaurant;
 import ru.liga.exception.CustomerNotFoundException;
-import ru.liga.exception.OrderItemNotFoundException;
 import ru.liga.exception.OrderNotFoundException;
 import ru.liga.exception.RestaurantNotFoundException;
 import ru.liga.mapper.OrderMapper;
-import ru.liga.repository.*;
+import ru.liga.repository.CustomerRepository;
+import ru.liga.repository.OrderItemRepository;
+import ru.liga.repository.OrderRepository;
+import ru.liga.repository.RestaurantRepository;
 import ru.liga.service.OrderItemService;
 import ru.liga.service.OrderService;
 
@@ -25,7 +27,6 @@ import java.net.URL;
 import java.security.SecureRandom;
 import java.sql.Timestamp;
 import java.time.LocalDateTime;
-import java.util.ArrayList;
 import java.util.List;
 
 @Slf4j
@@ -39,7 +40,6 @@ public class OrderServiceImpl implements OrderService {
     private final OrderItemRepository orderItemRepository;
     private final CustomerRepository customerRepository;
     private final RestaurantRepository restaurantRepository;
-    private final RestaurantMenuItemRepository menuItemRepository;
 
     @Override
     public CreatedOrderToDeliveryDto createOrder(CreatedOrderDto createOrderDto, Long customerId) {
@@ -59,11 +59,13 @@ public class OrderServiceImpl implements OrderService {
         order.setRestaurant(restaurant);
         order.setTimestamp(Timestamp.valueOf(LocalDateTime.now()));
         order.setCustomer(customer);
+
         orderRepository.save(order);
+        orderItemRepository.saveAll(orderItems);
 
         CreatedOrderToDeliveryDto createdOrderToDeliveryDto = new CreatedOrderToDeliveryDto();
         createdOrderToDeliveryDto.setSecretPaymentUrl(createUrlForOrderPayment());
-        createdOrderToDeliveryDto.setEstimatedTimeOfArrival("30");
+        createdOrderToDeliveryDto.setEstimatedTimeOfArrival("Примерное время доставки 30 минут");
         createdOrderToDeliveryDto.setId(order.getId());
         return createdOrderToDeliveryDto;
     }
@@ -92,8 +94,8 @@ public class OrderServiceImpl implements OrderService {
     @Override
     public OrderDto getOrderById(Long orderId) {
         log.info("Current method is - getOrderById");
-        Order order = orderRepository.findById(orderId).orElseThrow(OrderNotFoundException::new);
 
+        Order order = orderRepository.findById(orderId).orElseThrow(OrderNotFoundException::new);
         return orderMapper.orderToOrderDto(order);
     }
 

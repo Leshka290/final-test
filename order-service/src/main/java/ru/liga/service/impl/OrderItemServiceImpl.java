@@ -8,7 +8,6 @@ import ru.liga.dto.MenuItem;
 import ru.liga.entity.Order;
 import ru.liga.entity.OrderItem;
 import ru.liga.entity.RestaurantMenuItem;
-import ru.liga.repository.OrderItemRepository;
 import ru.liga.repository.RestaurantMenuItemRepository;
 import ru.liga.service.OrderItemService;
 
@@ -21,7 +20,6 @@ import java.util.stream.Collectors;
 @RequiredArgsConstructor
 @Service
 public class OrderItemServiceImpl implements OrderItemService {
-    private final OrderItemRepository orderItemRepository;
     private final RestaurantMenuItemRepository restaurantMenuItemRepository;
 
     @Override
@@ -36,11 +34,13 @@ public class OrderItemServiceImpl implements OrderItemService {
         for (RestaurantMenuItem menuItem : menuItems) {
             OrderItem orderItem = new OrderItem();
             orderItem.setOrder(order);
+            orderItem.setName(menuItem.getName());
+            orderItem.setDescription(menuItem.getDescription());
             orderItem.setRestaurantMenuItem(menuItem);
             orderItem.setPrice(menuItem.getPrice());
             orderItem.setQuantity(itemsQuantity.get(menuItem.getId()));
             orderItems.add(orderItem);
         }
-        return orderItemRepository.saveAll(orderItems);
+        return orderItems;
     }
 }

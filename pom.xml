@@ -24,5 +24,7 @@
     <module>delivery-service</module>
     <module>common</module>
     <module>dependency_bom</module>
+    <module>migration</module>
+    <module>auth-service</module>
   </modules>
 </project>

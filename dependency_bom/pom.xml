@@ -11,9 +11,6 @@
     <packaging>pom</packaging>
 
     <name>dependency_bom</name>
-    <modules>
-        <module>../auth-service</module>
-    </modules>
 
     <properties>
         <java.version>11</java.version>
