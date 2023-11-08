@@ -13,6 +13,7 @@ import ru.liga.dto.CreatedOrderDto;
 import ru.liga.dto.CreatedOrderToDeliveryDto;
 import ru.liga.dto.OrderDto;
 import ru.liga.dto.enums.OrderStatus;
+import ru.liga.service.OrderService;
 
 import java.util.List;
 
@@ -21,6 +22,7 @@ import java.util.List;
 @RequestMapping("/order")
 @RestController
 public class OrderController {
+    private final OrderService orderService;
 
     @Operation(summary = "Создание заказа")
     @ApiResponse(responseCode = "200", description = "Created",
@@ -28,9 +30,10 @@ public class OrderController {
                     schema = @Schema(implementation = CreatedOrderToDeliveryDto.class))
     )
     @PostMapping()
-    public ResponseEntity<CreatedOrderToDeliveryDto> createOrder(@RequestBody CreatedOrderDto createOrderDto) {
+    public ResponseEntity<CreatedOrderToDeliveryDto> createOrder(@RequestBody CreatedOrderDto createOrderDto,
+                                                                 Long customerId) {
         log.info("Request POST createOrder");
-        return ResponseEntity.ok().build();
+        return ResponseEntity.ok(orderService.createOrder(createOrderDto, customerId));
     }
 
     @Operation(summary = "Получение заказа по id")
@@ -39,9 +42,9 @@ public class OrderController {
     @ApiResponse(responseCode = "404", description = "Not Found")
     @ApiResponse(responseCode = "500", description = "Internal Server Error")
     @GetMapping("/{id}")
-    public ResponseEntity<OrderDto> getOrderDtoById(@PathVariable Long id) {
+    public ResponseEntity<OrderDto> getOrderById(@PathVariable Long id) {
         log.info("Request GET orderDto by id {}", id);
-        return ResponseEntity.ok().build();
+        return ResponseEntity.ok(orderService.getOrderById(id));
     }
 
     @Operation(summary = "Обновление статуса заказа")
@@ -50,6 +53,8 @@ public class OrderController {
     @PutMapping("/update/{id}")
     private void updateOrderStatusById(@PathVariable Long id, @RequestParam OrderStatus status) {
         log.info("Request PUT order status {} by id {}", status, id);
+
+        orderService.updateOrderStatusById(id, status);
         ResponseEntity.ok().build();
     }
 
@@ -60,6 +65,6 @@ public class OrderController {
     @GetMapping("/all")
     public ResponseEntity<List<OrderDto>> getAllOrders() {
         log.info("Request GET all orders");
-        return ResponseEntity.ok().build();
+        return ResponseEntity.ok(orderService.getAllOrders());
     }
 }

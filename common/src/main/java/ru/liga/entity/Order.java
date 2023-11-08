@@ -16,7 +16,7 @@ public class Order {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Column(name = "order_id", nullable = false)
-    private long id;
+    private Long id;
     private Timestamp timestamp;
     @Enumerated(EnumType.STRING)
     private OrderStatus status;
