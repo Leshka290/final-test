@@ -27,10 +27,9 @@ public class DeliveryController {
 
     @Operation(summary = "Изменение статуса заказа")
     @PostMapping()
-    public ResponseEntity<?> updateOrderStatus(@RequestBody OrderActionDto orderAction) {
+    public void updateOrderStatus(@RequestBody OrderActionDto orderAction) {
         log.info("Request POST delivery order action {}", orderAction);
 
         deliveryService.updateOrderStatus(orderAction);
-        return ResponseEntity.ok().build();
     }
 }

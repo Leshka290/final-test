@@ -5,7 +5,7 @@ import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import ru.liga.dto.OrderActionDto;
 
-@FeignClient(name = "kitchen-client", url = "http://localhost:8090")
+@FeignClient(name = "delivery-service", url = "http://localhost:8050")
 public interface KitchenClient {
 
     @PostMapping(value = "/delivery")
