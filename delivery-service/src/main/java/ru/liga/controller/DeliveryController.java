@@ -6,8 +6,8 @@ import lombok.extern.slf4j.Slf4j;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 import ru.liga.dto.DeliveryDto;
-import ru.liga.dto.enums.DeliveryStatus;
-import ru.liga.dto.enums.OrderAction;
+import ru.liga.dto.OrderActionDto;
+import ru.liga.service.DeliveryService;
 
 import java.util.List;
 
@@ -16,25 +16,21 @@ import java.util.List;
 @RequestMapping("/delivery")
 @RestController
 public class DeliveryController {
-
-    @Operation(summary = "Получение списка доставок по статусу")
-    @GetMapping("/{status}")
-    public ResponseEntity<List<DeliveryDto>> getAllByStatus(@PathVariable DeliveryStatus status) {
-        log.info("Request GET delivery by status {}", status);
-        return ResponseEntity.ok().build();
-    }
+    private final DeliveryService deliveryService;
 
     @Operation(summary = "Получение списка доставок")
     @GetMapping("/all")
     public ResponseEntity<List<DeliveryDto>> getAllDelivery() {
         log.info("Request GET all delivery");
-        return ResponseEntity.ok().build();
+        return ResponseEntity.ok(deliveryService.getAllDeliveries());
     }
 
     @Operation(summary = "Изменение статуса заказа")
-    @PostMapping("/{id}")
-    public ResponseEntity<?> setOrderAction(@PathVariable Long id, OrderAction orderAction) {
+    @PostMapping()
+    public ResponseEntity<?> updateOrderStatus(@RequestBody OrderActionDto orderAction) {
         log.info("Request POST delivery order action {}", orderAction);
+
+        deliveryService.updateOrderStatus(orderAction);
         return ResponseEntity.ok().build();
     }
 }
