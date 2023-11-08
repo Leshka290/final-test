@@ -27,6 +27,7 @@ import java.net.URL;
 import java.security.SecureRandom;
 import java.sql.Timestamp;
 import java.time.LocalDateTime;
+import java.time.format.DateTimeFormatter;
 import java.util.List;
 
 @Slf4j
@@ -65,7 +66,7 @@ public class OrderServiceImpl implements OrderService {
 
         CreatedOrderToDeliveryDto createdOrderToDeliveryDto = new CreatedOrderToDeliveryDto();
         createdOrderToDeliveryDto.setSecretPaymentUrl(createUrlForOrderPayment());
-        createdOrderToDeliveryDto.setEstimatedTimeOfArrival("Примерное время доставки 30 минут");
+        createdOrderToDeliveryDto.setEstimatedTimeOfArrival(LocalDateTime.now().plusHours(1));
         createdOrderToDeliveryDto.setId(order.getId());
         return createdOrderToDeliveryDto;
     }
