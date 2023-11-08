@@ -28,11 +28,14 @@
 - Модуль отвечает за обработку заказа.
 
 ## Сборка проекта
-1. При необходимости измените параметры доступа к базе данных в файлах(
-spring.datasource.url=jdbc:postgresql://localhost:5432/food_service
-spring.datasource.password=postgres
-spring.datasource.username=postgres):
-  - application.properties
+1. При необходимости измените параметры доступа к базе данных в файлах
+ - application.properties
+>spring.datasource.url=jdbc:postgresql://localhost:5432/food_service
+
+>spring.datasource.password=postgres
+
+>spring.datasource.username=postgres
+
 2. Установить если не установлен RabbitMQ и подключиться login:guest, password:guest
  - $ docker pull rabbitmq
  - $ docker run --restart always -d --network host rabbitmq
