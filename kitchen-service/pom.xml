@@ -13,6 +13,10 @@
 
     <name>kitchen</name>
 
+    <properties>
+        <spring-cloud.version>2021.0.8</spring-cloud.version>
+    </properties>
+
     <dependencies>
         <dependency>
             <groupId>org.springframework.boot</groupId>
